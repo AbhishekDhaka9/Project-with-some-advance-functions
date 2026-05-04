@@ -33,8 +33,7 @@ def parse_chunk(chunk):
             type_of_page = "Unknown"
             bio = ""
         # print(username, no_of_posts, no_of_followers, no_of_following, name, type_of_page, bio, sep="\n")
-        return {"username": username, "no_of_posts": no_of_posts, "no_of_followers": no_of_followers, 
-                "no_of_following": no_of_following, "name": name, "type_of_page": type_of_page, "bio": bio}
+        return {"username": username, "no_of_posts": no_of_posts, "no_of_followers": no_of_followers,"no_of_following": no_of_following, "name": name, "type_of_page":type_of_page, "bio": bio}
 
 
 all_chunks = [] 
@@ -61,3 +60,18 @@ for chunk in all_chunks:
         max_followers = chunk['no_of_followers']
         chunk_with_max_followers = chunk
 print(f"The id with max followers is : {chunk_with_max_followers}")
+
+max_following=0
+for chunk in all_chunks:
+    if(max_following<chunk['no_of_following']):
+        max_following = chunk['no_of_following']
+        chunk_with_max_following = chunk
+print(f"The id with max following is : {chunk_with_max_following}")
+
+# How many categories of pages are there in the data?
+categories=set()
+for chunk in all_chunks:
+    categories.add(chunk['type_of_page'])
+print(f"The categories of pages are : {categories}")
+print(len(categories))
+
