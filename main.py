@@ -1,4 +1,4 @@
-with open("initialdata.txt", encoding='utf-8') as f:
+with open("finaldata.txt", encoding='utf-8') as f:
     data = f.read()
 
 chunks = data.split("\n\n") 
@@ -39,12 +39,13 @@ def parse_chunk(chunk):
 all_chunks = [] 
 for chunk in chunks:  
     parsed_chunk = parse_chunk(chunk)
-    all_chunks.append(parsed_chunk)
-print(all_chunks) 
+    all_chunks.append(parsed_chunk) 
 
 import json
 s = json.dumps(all_chunks, indent=4)
-print(s)
+with open ("Json_data.json", "w") as f:
+    f.write(s)
+
 
 
 max = 0
@@ -52,26 +53,27 @@ for chunk in all_chunks:
     if(max<chunk['no_of_posts']):
         max = chunk['no_of_posts']
         chunk_with_max_post = chunk
-print(f"The id with max posts is : {chunk_with_max_post}")
+print(f"The id with max posts is : {chunk_with_max_post['username']}")
 
 max_followers=0
 for chunk in all_chunks:
     if(max_followers<chunk['no_of_followers']):
         max_followers = chunk['no_of_followers']
         chunk_with_max_followers = chunk
-print(f"The id with max followers is : {chunk_with_max_followers}")
+print(f"The id with max followers is : {chunk_with_max_followers['username']}")
 
 max_following=0
 for chunk in all_chunks:
     if(max_following<chunk['no_of_following']):
         max_following = chunk['no_of_following']
         chunk_with_max_following = chunk
-print(f"The id with max following is : {chunk_with_max_following}")
+print(f"The id with max following is : {chunk_with_max_following['username']}")
 
 # How many categories of pages are there in the data?
 categories=set()
 for chunk in all_chunks:
     categories.add(chunk['type_of_page'])
 print(f"The categories of pages are : {categories}")
-print(len(categories))
+print(f"Total categories: {len(categories)}")
+
 
